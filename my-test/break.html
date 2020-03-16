@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+</body>
+<script>
+    var arr = ['beijing', 'shanghai', 'guangzhou', 'shenzhen', 'hangzhou', 'chengdu'], obj = { name: 'tom', age: 20, address: 'beijing', job: 'artist' };
+
+    //for循环可以使用break/continue跳出循环
+    for (let i = 0; i < arr.length; i++) {
+        if (i == 1) continue;
+        console.log(arr[i]);
+        if (i == 3) break;
+    }
+    console.log('------------------------------')
+    //forin可以使用break/continue跳出循环
+    for (const key in obj) {
+        if (key == 'age') continue;
+        console.log(key);
+        if (key == 'address') break;
+    }
+    console.log('------------------------------')
+    //forof可以使用break/continue跳出循环
+    for (let item of arr) {
+        if (item == 'shanghai') continue;
+        console.log(item);
+        if (item == 'shenzhen') break;
+    }
+
+
+
+    
+    console.log('------------------------------')
+    //map不能使用break/continue跳出循环
+    arr.map((item, i) => {
+        // if (i == 1) continue;
+        console.log(item);
+        // if (i == 3) break;
+    })
+    console.log('------------------------------')
+    //forEach不能使用break/continue跳出循环
+    arr.forEach((item, i) => {
+        //if(i == 1) continue;
+        console.log(item);
+        //if(i ==3) break;
+    }) 
+    console.log('------------------------------')
+    var set = new Set([1,2,3,4]);
+    for (const val of set) {
+        console.log(val);
+    }
+</script>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>JS Bin</title>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <p><input type="text" maxlength=20 id="mytextbox" /></p>
+    <p><button onclick="SelectText()">Select text</button></p>
+</body>
+
+<script src="./zy.js"></script>
+<script>
+    function getcaretPos(ele) {
+        return ele.selectionStart;
+    }
+    function setcaretPos(ele, pos) {
+        ele.setSelectionRange(pos, pos);
+    }
+    function checkNum(ele, isDel) {
+        var str = ele.value;
+        var currPos = getcaretPos(ele);
+        var isLast = true;
+        var posNextSpace = false;
+        var posPreSpace = false;
+        if (str.length != currPos) {
+            posNextSpace = str.substr(currPos, 1) === ' ' ? true : false;
+            posPreSpace = str.substr(currPos - 1, 1) === ' ' ? true : false;
+            isLast = false;
+        }
+        if (ele.value.length <= $(ele).attr('maxLength')) {
+            ele.value = ele.value.replace(/\s/g, '').replace(/(\w{4})(?=\w)/g, "$1 ");
+        }
+
+        if (isDel) {  //删除的时候要关注光标之前有没有空格
+            if (posPreSpace) {
+                setcaretPos(ele, currPos - 1);
+            } else {
+                setcaretPos(ele, currPos);
+            }
+        } else {  //输入的时候要关注光标后的内容有没有空格
+            if (isLast) {
+                setcaretPos(ele, ele.value.length);
+            } else {
+                if (posNextSpace) {
+                    setcaretPos(ele, currPos + 1);
+                } else {
+                    setcaretPos(ele, currPos);
+                }
+            }
+        }
+    }
+    var isDelete = true;
+    $('#mytextbox').on('keyup', function () {
+        checkNum(this, isDelete);
+    })
+    $('#mytextbox').on('keydown', function () {
+        isDelete = window.event.keyCode == 8;//标记用户进行删除操作
+    })
+</script>
+
+</html>

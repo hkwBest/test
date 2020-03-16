@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #box {
+            width: 500px;
+            height: 300px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" onmousedown="mouseDown(event)"></div>
+</body>
+<script>
+    function mouseDown(event) {
+        console.log(event.clientX, '---clientX')
+        console.log(event.pageX, '---pageX')
+        console.log(event.screenX, '---screenX')
+        /*
+            把浏览器窗口缩小再进行测试更能说明问题
+        */
+        // clientX 相对于浏览器左侧的位置 不随窗口的滚动改变
+        // pageX 相对于浏览器左侧的位置  会随浏览器的滚动改变
+        // screenX 相对于电脑屏幕左侧的位置  不会随浏览器的滚动改变
+    }
+</script>
+
+</html>

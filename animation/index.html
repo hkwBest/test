@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="box">
+      <div class="test1"></div>
+    </div>
+
+    <div class="dashed-box">
+      Dashed box
+      <span class="gold-box">Gold box</span>
+      <span class="green-box">Green box</span>
+    </div>
+  </body>
+</html>
+<script>
+  var MoveBar = function(options) {
+    var opts = {
+      dom: '',
+      delay: 0, // 动画延时时长
+      duration: 2, // 动画时长
+      diameter: 80, // 圆柱体直径
+      height: 100, // 圆柱体高度
+      bgcolor: ['gray'],
+      topColor: 'gray',
+      dashedColor: '#000',
+      solidColor: '#000',
+      cb: ''
+    }
+
+    Object.assign(opts, options)
+
+    var ovalWidth = opts.diameter, // 上下椭圆的宽度
+      ovalHeight = opts.diameter / 2, // 上下椭圆的高度
+      ovalOffset = -ovalHeight / 2 // 椭圆偏移量
+
+    // 计算椭圆周长
+    function getRingLength(ellipse) {
+      let rx = opts.diameter
+      let ry = opts.diameter / 2
+      let h = Math.pow(rx - ry, 2) / Math.pow(rx + ry, 2)
+      let totalLength =
+        Math.PI * (rx + ry) * (1 + (3 * h) / (10 + Math.sqrt(4 - 3 * h)))
+      return totalLength
+    }
+    // 创建底部圆环样式
+    function ringStyle() {
+      var solid =
+        'position: absolute;bottom: -' +
+        opts.diameter / 4 +
+        'px;left:-' +
+        opts.diameter / 2 +
+        'px;z-index:-1;'
+      var dashed =
+        'position: absolute;bottom: -' +
+        opts.diameter / 8 +
+        'px;left:-' +
+        opts.diameter / 4 +
+        'px;width:' +
+        opts.diameter * 1.5 +
+        'px;height:' +
+        (opts.diameter * 3) / 4 +
+        'px;border-radius: ' +
+        (opts.diameter * 1.5) / 2 +
+        'px / ' +
+        (opts.diameter * 1.5) / 4 +
+        'px;border: 1px dashed ' +
+        opts.dashedColor +
+        ';z-index:-1; box-sizing: border-box; opacity: 0;animation: showDashed ' +
+        opts.duration +
+        's forwards;'
+
+      var solidRing =
+        '.zy_solid_ring{stroke:' +
+        opts.solidColor +
+        ';stroke-width: 1;stroke-dasharray: ' +
+        getRingLength() +
+        ';stroke-dashoffset: ' +
+        getRingLength() +
+        ';animation: ringMove ' +
+        opts.duration +
+        's forwards;} @keyframes ringMove { to {stroke-dashoffset: 0;}}'
+
+      var ringBox = '.zy_ring_box{' + solid + '}'
+      var dashedRing =
+        '.zy_dashed_ring{' +
+        dashed +
+        '}@keyframes showDashed{ to {opacity: 1;}}'
+      return ringBox + dashedRing + solidRing
+    }
+    // 创建圆柱样式
+    function createStyle() {
+      // 动画样式
+      var animationStyle =
+        '@keyframes barMove{ 0%{ height: 0px; } 100%{ height: ' +
+        opts.height +
+        'px } }'
+      var commonStyle =
+        'display: block; position: absolute; content: ""; width: ' +
+        ovalWidth +
+        'px;height: ' +
+        ovalHeight +
+        'px; background-color: ' +
+        opts.topColor +
+        '; border-radius: ' +
+        ovalWidth / 2 +
+        'px / ' +
+        ovalHeight / 2 +
+        'px; box-sizing: border-box;'
+      // 圆柱体样式
+      var barStyle =
+        '.zy_move_bar{ position: relative; height: 0px; width: ' +
+        opts.diameter +
+        'px; background: ' +
+        (opts.bgcolor.length == 1
+          ? opts.bgcolor[0]
+          : 'linear-gradient(90deg,' +
+            opts.bgcolor[0] +
+            ',' +
+            opts.bgcolor[1] +
+            ')') +
+        ';border-bottom-left-radius: ' +
+        ovalWidth / 2 +
+        'px ' +
+        ovalHeight / 2 +
+        'px; border-bottom-right-radius: ' +
+        ovalWidth / 2 +
+        'px ' +
+        ovalHeight / 2 +
+        'px;animation: test2 ' +
+        opts.duration +
+        's forwards;} .zy_move_bar::after{' +
+        commonStyle +
+        'top: ' +
+        ovalOffset +
+        'px;}'
+
+      // var
+      return animationStyle + barStyle
+    }
+    // 插入样式文件
+    function insertStyle() {
+      var styleEle = document.createElement('style')
+      styleEle.dataset.insert = 'bar'
+      styleEle.type = 'text/css'
+      styleEle.innerHTML = createStyle() + ringStyle()
+      document.getElementsByTagName('head')[0].appendChild(styleEle)
+    }
+    //创建底部圆环
+    function createRing(node) {
+      var dashedRing = document.createElement('div')
+      dashedRing.classList.add('zy_dashed_ring')
+
+      var temEle = document.createElement('div')
+
+      var svg =
+        '<svg class="zy_ring_box" xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: ' +
+        (opts.diameter * 2 + 2) +
+        'px;height:' +
+        (opts.diameter + 2) +
+        'px"><ellipse class="zy_solid_ring" cx="' +
+        (opts.diameter + 1) +
+        '" cy="' +
+        (opts.diameter / 2 + 1) +
+        '" rx="' +
+        opts.diameter +
+        '" ry="' +
+        opts.diameter / 2 +
+        '" fill="none" /></svg>'
+
+      temEle.innerHTML = svg
+      node.appendChild(dashedRing)
+      node.appendChild(temEle.firstChild)
+    }
+    // 初始化
+    function init(node) {
+      node.classList.add('zy_move_bar')
+
+      setTimeout(function() {
+        if (document.querySelectorAll('[data-insert="bar"]').length <= 0) {
+          insertStyle()
+        }
+        createRing(node)
+        // 绑定动画效果
+        node.style.animation = 'barMove ' + opts.duration + 's  forwards'
+        typeof opts.cb == 'function' && opts.cb(node) // 回调
+      }, opts.delay * 1000)
+    }
+    Array.prototype.forEach.call(opts.dom, init)
+  }
+
+  var test = document.getElementsByClassName('test1')
+  MoveBar({
+    dom: test,
+    delay: 2,
+    duration: 2,
+    diameter: 60, // 圆柱体直径
+    height: 200, // 圆柱体高度
+    bgcolor: ['#83B29A', '#326249'],
+    topColor: '#91C1A8',
+    dashedColor: '#37383B',
+    solidColor: '#9D9D9E',
+    cb: function(params) {
+      console.log('callback')
+    }
+  })
+</script>
+<style>
+  .box {
+    border: 1px solid red;
+    display: flex;
+    width: 500px;
+    height: 500px;
+    padding: 100px;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
+  .dashed-box {
+    position: relative;
+    z-index: 1;
+    border: dashed;
+    height: 8em;
+    margin-bottom: 1em;
+    margin-top: 2em;
+  }
+  .gold-box {
+    position: absolute;
+    z-index: 3; /* put .gold-box above .green-box and .dashed-box */
+    background: gold;
+    width: 80%;
+    left: 60px;
+    top: 3em;
+  }
+  .green-box {
+    position: absolute;
+    z-index: 2; /* put .green-box above .dashed-box */
+    background: lightgreen;
+    width: 20%;
+    left: 65%;
+    top: -25px;
+    height: 7em;
+    opacity: 0.9;
+  }
+</style>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input id='user' type="text" />
+</body>
+<script>
+  var user = document.getElementById('user');
+  var res = [];
+  user.onkeyup = function(event){
+    res.push({
+      event: 'keyup',
+      value: this.value,
+      keyCode: event.keyCode
+    })
+  }
+  user.onkeydown = function(event){
+    res.push({
+      event: 'keydown',
+      value: this.value,
+      keyCode: event.keyCode
+    })
+  }
+  user.oninput = function(event){
+    res.push({
+      event: 'input',
+      value: this.value,
+      keyCode: event.keyCode
+    })
+  }
+  user.onchange = function(event){
+    res.push({
+      event: 'change',
+      value: this.value,
+      keyCode: event.keyCode
+    })
+    console.log('change-------------');
+    console.table(res)
+  }
+  user.onblur = function(event){
+    res.push({
+      event: 'blur',
+      value: this.value,
+      keyCode: event.keyCode
+    })
+    console.log('blur-------------');
+    console.table(res)
+  }
+  //console.table(res)
+</script>
+
+</html>

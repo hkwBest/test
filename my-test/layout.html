@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>两列布局、三列布局</title>
+    <style>
+      .container {
+        position: relative;
+        width: 100%;
+      }
+      .container::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      /* 浮动办法 */
+      /* .left {
+        width: 400px;
+        height: 300px;
+        float: left;
+        background-color: blanchedalmond;
+      }
+      .right {
+        margin-left: 400px;
+      } */
+      /* 定位方法 */
+      /* .left{
+        width: 400px;
+        height: 300px;
+        background-color: blanchedalmond;
+      }
+      .right{
+        position: absolute;
+        left: 400px;
+      } */
+      /* bfc办法 */
+      .left {
+        float: left;
+        width: 400px;
+        height: 300px;
+        background-color: blanchedalmond;
+      }
+      .right {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left"></div>
+      <div class="right">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. A voluptates,
+        dolorum quo ipsa incidunt molestiae ab non culpa, laborum et dignissimos
+        soluta hic animi! Sit sed expedita hic labore exercitationem!
+      </div>
+    </div>
+  </body>
+  <script>
+    let Arr = [
+      {
+        name: 'one',
+        id: 111,
+        list: [
+          { value: 2, status: true, student_name: 'tom' },
+          { value: 4, status: false, student_name: 'marry' },
+          { value: 1, status: true, student_name: 'jerry' },
+          { value: 6, status: false, student_name: 'erdan' }
+        ]
+      },
+      {
+        name: 'two',
+        id: 222,
+        list: [
+          { value: 2, status: true, student_name: 'tom' },
+          { value: 4, status: false, student_name: 'marry' },
+          { value: 1, status: true, student_name: 'jerry' },
+          { value: 6, status: false, student_name: 'erdan' }
+        ]
+      }
+    ]
+
+    Arr.map((item, index) => {
+      item.list = item.list.sort((a, b) => a.value - b.value)
+    })
+
+    console.log(Arr)
+  </script>
+
+  <script>
+    function makeIterator(array) {
+      var nextIndex = 0
+      return {
+        next: function() {
+          return !array[nextIndex]
+            ? { value: array[nextIndex++], done: false }
+            : { done: true }
+        }
+      }
+    }
+
+    var array=[]
+  </script>
+</html>

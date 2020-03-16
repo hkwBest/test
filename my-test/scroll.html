@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="http://www.softwhy.com/" />
+    <title>蚂蚁部落</title>
+    <style type="text/css">
+        div {
+            width: 200px;
+            height: 600px;
+            background: green;
+            margin: 10px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        #one {
+            position: absolute;
+            left: -500px;
+        }
+    </style>
+    <script>
+        function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 && rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+        window.onload = function () {
+            var str = "";
+            var oneDiv = document.getElementById("one");
+            var twoDiv = document.getElementById("two");
+            var show = document.getElementById("show");
+            if (isElementInViewport(oneDiv)) str = "第一个div在可见区域，";
+            if (isElementInViewport(twoDiv)) str = str + "第二个div在可见区域";
+            show.innerHTML = str;
+        }
+    </script>
+</head>
+
+<body>
+    <div id="one">蚂蚁部落一</div>
+    <div id="two">蚂蚁部落二</div>
+    <div id="show"></div>
+</body>
+
+</html>

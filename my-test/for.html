@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body></body>
+  <script>
+    var a = [1, 2, 3, 4, 5, 4, 3, 2, 1]
+    // for (var i = 0; i < a.length; i++) {
+    //   if (a[i] > 3) {
+    //     a.splice(i, 1)
+    //     i--
+    //   }
+    // }
+    // a.forEach(function(item, index) {
+    //   item * 2
+    // })
+
+    // var b = a.some(function(item, index) {
+    //   console.log(index)
+    //   return item > 3
+    // })
+    // console.log(a,b)
+    var b = a.filter(function(item, index) {
+      console.log(index)
+      return item > 3
+    })
+    console.log(b);
+  </script>
+</html>

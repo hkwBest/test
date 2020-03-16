@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .shadow {
+        text-shadow: 5px 5px 10px red;
+      }
+      .box-shadow {
+        width: 200px;
+        height: 80px;
+        border: 1px solif #000;
+        box-shadow: 5px 5px 10px #888;
+      }
+      .transform {
+        height: 100px;
+        width: 100px;
+        background-color: red;
+        border: 1px solid #000;
+        /* transition: All 0.4s ease-in-out; */
+        /* transform: rotateY(180deg); */
+        /* transform: translate(30px,50px), rotate(30deg); */
+        /* transform: rotate(30deg); */
+        /* transform: scale(2,3);
+            -ms-transform: scale(2,3);
+            -webkit-transform: scale(2,3); */
+        /* transform: skew(30deg,40deg) */
+      }
+      .transform:hover {
+        transform: rotateY(180deg);
+      }
+      .size {
+        height: 100px;
+        width: 100px;
+        border: 1px solid #000;
+        padding: 10px;
+        margin: 10px;
+      }
+
+      .retina {
+        width: 100px;
+        height: 22px;
+        padding: 5px 10px;
+        font-size: 16px;
+        position: relative;
+        border: none;
+      }
+      /* .retina:after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            background: #000;
+            width: 100%;
+            height: 1px;
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+        } */
+      .retina:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid #000;
+        border-radius: 4px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 200%;
+        height: 200%;
+        -webkit-transform: scale(0.5);
+        transform: scale(0.5);
+        -webkit-transform-origin: left top;
+        transform-origin: left top;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <ul class="ulist" data-self="true">
+        <li class="list">hello</li>
+        <li class="list">zepto</li>
+        <li class="list">skr</li>
+      </ul>
+      <p class="one">hello zepto</p>
+      <input type="text" class="text" />
+      <button class="trigger">trigger</button>
+      <p class="shadow">hello zepto!</p>
+      <div class="box-shadow"></div>
+      <div class="transform">transform</div>
+      <div class="size"></div>
+
+      <div class="retina">hello</div>
+
+      <!-- <div style="display: none">
+        <img src="./border-img.png" alt="" />
+      </div> -->
+      <img style="display: none" src="./border-img.png" alt="" />
+    </div>
+  </body>
+  <script src="./zepto.mini.js"></script>
+  <script>
+    // Zepto(function($){
+    //     alert('hello')
+    // })
+    $('.list')
+      .add('.one')
+      .css({ color: 'red' })
+    console.log($.camelCase('hello#world'))
+    let arr = [1, 2, 3, 4],
+      hash = { name: 'tom', age: 20 }
+    $.each(arr, (index, item) => {
+      console.log(item)
+    })
+    $.each(hash, (key, val) => {
+      console.log(`${key}:${val}`)
+    })
+    $('.ulist').on('click', '.list', e => {
+      console.log(e.target.tagName)
+      console.log('hello')
+    })
+    $('.one').one('click', e => {
+      console.log('one')
+    })
+
+    $(document).on('mylib:change', function(e, from, to) {
+      console.log('change on %o with data %s, %s', e.target, from, to)
+    })
+    // trigger the custom event
+    $(document.body).trigger('mylib:change', ['one', 'two'])
+
+    $('.trigger').on('click', function(e, p1, p2) {})
+    //console.log($('.size').css('box-sizing','border-box'));
+    console.log($('.size').width())
+    // console.log($('.size').innerWidth());
+    // console.log($('.size').outerWidth());
+    // console.log($('.size').outerWidth(true));
+    console.log($('.ulist').children())
+    console.log($('.ulist').contents())
+
+    console.log(typeof $('.ulist').data('self'))
+    console.log($('.ulist').first())
+    console.log($('.ulist').has('li'))
+    console.log($('.ulist').offset())
+  </script>
+</html>

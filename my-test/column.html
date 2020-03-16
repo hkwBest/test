@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{
+            /* margin: 0; */
+        }
+        .col {
+            position: relative;
+            width: 100px;
+            overflow: hidden;
+        }
+
+        .text {
+            column-width: 100px;
+            column-gap: 0;
+            width: 100px;
+            height: 80px;
+            margin: 0;
+        }
+        .col2 {
+            width: 100px;
+            height: 200px;
+            column-width: 100px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="col">
+        <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo itaque neque nulla fuga asperiores
+            eius,
+            tempore voluptatibus beatae ratione aspernatur praesentium vitae consequatur in hic aliquam eos
+            consequuntur quae voluptates.</p>
+    </div>
+    <button class="page" onclick='changePage()'>翻页</button>
+    <div class="col2">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto veniam velit aut reiciendis quos
+        reprehenderit assumenda tempora doloribus! Aliquam similique dolore debitis minus magnam voluptates provident
+        fugiat corrupti doloribus? Nobis.
+    </div>
+</body>
+<script src="./zepto.mini.js"></script>
+<script>
+    function changePage(){
+        console.log($('.text').offset());
+        // var left = -($('.text').offset().left+100);
+        var left 
+        $('.text').css({'transform':'translateX('+left+'px)'})
+       
+    }
+</script>
+
+</html>

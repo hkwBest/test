@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body></body>
+  <script>
+    // function Test() {
+    //   this.name = 'tom'
+    //   this.arr = [1, 2, 3]
+    // }
+    // Test.prototype.c = [1, 2, 3]
+    // function P() {}
+    // Test.prototype = new P()
+    // var t = new Test()
+    // Test.prototype.constructor = Test
+    // console.log(t.__proto__)
+
+    // var a = [1, 2, 3, 4]
+    // function handle(arr) {
+    //   arr[0] = 100
+    // }
+    // handle(a)
+    // console.log(a)
+  </script>
+
+  <script>
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+    }
+    Person.prototype.introduce = function() {
+      console.log(this.name + this.age + '岁了！')
+    }
+
+    function Tom(address) {
+      this.address = address
+    }
+    Tom.prototype = new Person()
+    var tom = new Tom('beijing')
+    console.log(tom instanceof Tom)
+    console.log(tom instanceof Person)
+    console.log(Tom.prototype)
+    console.log(Person.prototype)
+
+    
+
+    
+  </script>
+</html>

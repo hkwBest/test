@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0 minimun-scale=1.0 user-scalable=no">
+    <style>
+        .test {
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .test:before {
+            content: '111';
+            font-size: 20px;
+            color: blueviolet;
+        }
+
+        .test:after {
+            content: '222';
+            font-size: 20px;
+            color: coral;
+        }
+
+        .inner {
+            position: absolute;
+            right: 10px;
+        }
+
+        #star-six {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid red;
+            position: relative;
+        }
+
+        #star-six::after {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 100px solid red;
+            position: absolute;
+            content: "";
+            top: 30px;
+            left: -50px;
+        }
+
+        .baidu::after {
+            content: '('attr(href)')'
+        }
+
+        .play {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rebeccapurple;
+            border-radius: 50%;
+            background-color: rebeccapurple;
+        }
+
+        .play:after {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            content: '';
+            border: 10px solid transparent;
+            border-left: 10px solid #fff;
+
+        }
+
+        .icon-span {
+            display: inline-block;
+            background-color: #fff;
+            border-radius: 100%;
+            border: 1px solid #ccc;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .icon-span::after {
+            border: 2px solid red;
+            border-left: 0;
+            border-top: 0;
+            content: " ";
+            top: 3px;
+            left: 6px;
+            position: absolute;
+            width: 4px;
+            height: 8px;
+            -webkit-transform: rotate(45deg) scale(0);
+            transform: rotate(45deg) scale(0);
+            -webkit-transition: -webkit-transform .2s;
+            transition: -webkit-transform .2s;
+            transition: transform .2s;
+            transition: transform .2s, -webkit-transform .2s;
+        }
+
+        .icon-span-select {
+            background-color: red;
+            border-color: red;
+        }
+
+        .icon-span-select::after {
+            border-color: #fff;
+            -webkit-transform: rotate(45deg) scale(1);
+            transform: rotate(45deg) scale(1);
+        }
+
+    
+    </style>
+</head>
+
+<body>
+    <p class="bold">hello world</p>
+    <ul class="ulist" onclick='sum()'>
+        <li class="list1">hello</li>
+        <li>world</li>
+        <li onclick='add()'>zepto</li>
+    </ul>
+    <div class="test">zepto<span class="inner">hello</span></div>
+    <div id="star-six"></div>
+    <a class="baidu" href="http://baidu.com">百度：</a>
+    <div class="play"></div>
+    <div class="css">qweqweqwewqeqwxs</div>
+    <i class="icon-span" :class="{'icon-span-select' : isShow}"></i>
+</body>
+<script src="./zepto.mini.js"></script>
+<script src="./test.js"></script>
+<script>
+    $(function () {
+        console.log(document.getElementsByClassName('play')[0].style);
+        //console.log($('.play').css({'border':'1px solid red'}))
+        $('.css').css({ 'display': 'inline-block', 'fontSize': '30px' })
+
+    })
+
+    document.getElementsByClassName('css')[0].addEventListener('click', function () {
+        alert(333);
+    })
+
+    function add(e) {
+        alert(111);
+        var e = e || window.event;
+        console.log(e);
+        e.stopPropagation();
+    }
+    function sum() {
+        alert(222);
+    }
+
+
+
+</script>
+
+</html>

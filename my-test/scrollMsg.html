@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      .wrap {
+        position: relative;
+        height: 100px;
+        color: #000;
+        margin-top: 200px;
+        overflow: hidden;
+        background-color: aqua;
+      }
+      .sm_list {
+        position: absolute;
+        top: 0px;
+        /* transition: all 1s; */
+      }
+      .sm_item {
+        height: 100px;
+        line-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="list">
+        <div class="item" style="background-color:red;">第一行数据</div>
+        <div class="item" style="background-color:blue;">第二行数据</div>
+        <div class="item" style="background-color:green;">第三行数据</div>
+        <div class="item" style="background-color:red;">第一行数据</div>
+      </div> -->
+    <div class="wrap"></div>
+  </body>
+  <script>
+    var count = 0
+    // setInterval(() => {
+    //   var list = document.querySelector('.list')
+    //   var timer = null
+    //   count++
+
+    //   timer = setInterval(() => {
+    //     var oldtop = parseInt(list.style.top || 0)
+    //     if (oldtop > -count * 100) {
+    //       list.style.top = oldtop - 10 + 'px'
+    //     } else {
+    //       clearInterval(timer)
+    //       if (count >= 3) {
+    //         list.style.top = '-0px'
+    //         count = 0
+    //       }
+    //     }
+    //   }, 100)
+    // }, 2000)
+
+    var ScrollMsg = function(options) {
+      var opts = {
+        // 外层容器
+        dom: null,
+        // 滚动内容
+        msgData: [],
+        // 滚动粒度
+        step: 5,
+        // 停留时常
+        stayT: 2,
+        // 滚动方向
+        direction: ''
+      }
+
+      Object.assign(opts, options)
+
+      //插入滚动元素
+      function insertNodes() {
+        var _d = opts.msgData,
+          _n = opts.dom
+        var _list = document.createElement('div')
+        var nodeStr = ''
+        _list.setAttribute('id', 'sm_list')
+        _list.style.position = 'absolute'
+        _list.style.top = '0px'
+
+        for (var i = 0; i < _d.length; i++) {
+          nodeStr += '<div class="sm_item">' + _d[i] + '</div>'
+        }
+        nodeStr += '<div class="sm_item">' + _d[0] + '</div>'
+
+        _list.innerHTML = nodeStr
+        _n.appendChild(_list)
+      }
+
+      function gomove() {
+        var count = 0
+        var step = opts.step,
+          wrap = opts.dom,
+          stayT = opts.stayT,
+          msgData = opts.msgData
+        var list = document.querySelector('#sm_list')
+
+        var wrapH = wrap.offsetHeight
+        var interval = (wrapH / step) * 100 + stayT * 1000
+        console.log(interval)
+        setInterval(() => {
+          count++
+          var timer = setInterval(() => {
+            var oldtop = parseInt(list.style.top || 0)
+            if (oldtop > -count * wrapH) {
+              list.style.top = oldtop - step + 'px'
+            } else {
+              clearInterval(timer)
+              if (count >= msgData.length) {
+                list.style.top = '-0px'
+                count = 0
+              }
+            }
+          }, 100)
+        }, interval)
+      }
+      function init() {
+        insertNodes()
+        gomove()
+      }
+      init()
+    }
+
+    var wrap = document.querySelector('.wrap')
+    ScrollMsg({ dom: wrap, msgData: ['qqqq', 'wwwww'] })
+  </script>
+</html>

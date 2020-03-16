@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body></body>
+  <script>
+    function test() {
+      var arr = []
+      // for (var i = 0; i < 10; i++) {
+      //   arr[i] = (function(j) {
+      //     return j
+      //   })(i)
+      // }
+      // for (var i = 0; i < 10; i++) {
+      //   ;(function(j) {
+      //     arr[j] = function() {
+      //       return j
+      //     }
+      //   })(i)
+      // }
+      // for (var j = 0; j < 10; j++) {
+      //   console.log(arr[j]())
+      // }
+
+      for (var i = 0; i < 5; i++) {
+        ;(function(j) {
+          setTimeout(function() {
+            console.log(j)
+          }, 1000 * j)
+        })(i)
+      }
+    }
+    test()
+  </script>
+</html>

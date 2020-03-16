@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .header,
+      .body,
+      .content,
+      .footer {
+        border: 1px solid #000;
+      }
+      .content {
+        height: 50px;
+        padding: 20px;
+      }
+      .target {
+        height: 800px;
+      }
+      .footer {
+        height: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="header">
+        header
+        <button class="btn">click me</button>
+      </div>
+      <div class="body">
+        <div class="content">content1</div>
+        <div class="content">content2</div>
+        <div class="target">content3</div>
+      </div>
+      <div class="footer">footer</div>
+    </div>
+  </body>
+  <script>
+    var btn = document.getElementsByClassName('btn')[0]
+
+    btn.onclick = function() {
+      var target = document.getElementsByClassName('footer')
+      target[0].scrollIntoView()
+    }
+  </script>
+</html>

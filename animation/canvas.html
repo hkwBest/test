@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #canvas {
+        /* width: 300px;
+        height: 300px; */
+        border: 1px solid red;
+        transform: scale(2,1);
+      }
+    </style>
+  </head>
+  <body onload="draw()">
+    <canvas id="canvas"></canvas>
+  </body>
+  <script>
+    function draw() {
+      var canvas = document.getElementById('canvas')
+      if (canvas.getContext) {
+        var mW = (canvas.width = 300)
+        var mH = (canvas.height = 300)
+        var ctx = canvas.getContext('2d')
+
+        const PI = Math.PI
+        var r = 50 // 半径
+        var cX = 150, // 圆心位置
+          cY = 150
+
+        var lineWidth = 1 // 画笔宽度
+        var startAngle = (-1 / 2) * PI // 起始角度
+        var endAngle = startAngle + 2 * PI // 结束角度
+        var xAngle = (1 * PI) / 180 // 每次偏移弧度
+        var temAngle = startAngle
+
+        var render = function() {
+          if (temAngle > endAngle) {
+            return
+          } else {
+            temAngle += xAngle
+          }
+          ctx.clearRect(0, 0, mW, mH)
+
+          ctx.beginPath()
+          ctx.lineWidth = lineWidth
+          ctx.strokeStyle = '#000'
+          ctx.arc(cX, cY, r, startAngle, temAngle)
+          ctx.stroke()
+          ctx.closePath()
+
+          requestAnimationFrame(render)
+        }
+
+        render()
+      }
+    }
+  </script>
+</html>

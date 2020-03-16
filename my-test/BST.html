@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body></body>
+  <script>
+    function Node(data, left, right) {
+      this.data = data
+      this.left = left
+      this.right = right
+      this.show = show
+    }
+    function BST() {
+      this.root = null
+      this.insert = insert
+    }
+    function insert(data) {
+      var node = new Node(data, null, null)
+      if (this.root == null) {
+        this.root = node
+      } else {
+        recursive(this.root, data)
+      }
+    }
+    function recursive(node, data) {
+      var n = new Node(data, null, null)
+      if (data < node.data) {
+        if (node.left) {
+          recursive(node.left, data)
+        } else {
+          node.left = n
+        }
+      } else {
+        if (node.right) {
+          recursive(node.right, data)
+        } else {
+          node.right = n
+        }
+      }
+    }
+    function show() {
+      return this.data
+    }
+
+    function inOrder(node) {
+      if (!(node == null)) {
+        inOrder(node.left)
+        console.log(node.show() + ' ')
+        inOrder(node.right)
+      }
+    }
+    function lastOrder(node) {
+      if (!(node == null)) {
+        lastOrder(node.left)
+        lastOrder(node.right)
+        console.log(node.show())
+      }
+    }
+    function firstOrder(node) {
+      if (!(node == null)) {
+        console.log(node.show())
+        firstOrder(node.left)
+        firstOrder(node.right)
+      }
+    }
+
+    function getMin(node) {
+      if (node.left) {
+        return getMin(node.left)
+      } else {
+        return node.data
+      }
+    }
+    function getMax(node) {
+      var current = node.right
+      while (current.right) {
+        current = current.right
+      }
+      return current.data
+    }
+
+    // function find(node, data) {
+    //   if (!node) {
+    //     return null
+    //   }
+    //   if (node.data == data) {
+    //     return node.data
+    //   } else {
+    //     if (data > node.data) {
+    //       return find(node.right, data)
+    //     } else {
+    //       return find(node.left, data)
+    //     }
+    //   }
+    // }
+    function find(node, data) {
+      var current = node
+      while (current) {
+        if (current.data == data) {
+          return current
+        }
+        if (data > current.data) {
+          current = current.right
+        } else {
+          current = current.left
+        }
+      }
+      return null
+    }
+
+    function sumPath(node, sum) {
+      if (!node) {
+        return false
+      }
+
+      if (!node.left && !node.right) {
+        return sum == node.data
+      }
+      return (
+        sumPath(node.left, sum - node.data) ||
+        sumPath(node.right, sum - node.data)
+      )
+    }
+    // 二叉树中所有的路径
+    function allPath(node) {
+      if (!node) {
+        return []
+      }
+      if (!node.left && !node.right) {
+        return [node.data]
+      }
+      var left = allPath(node.left),
+        right = allPath(node.right)
+      return left.concat(right).map(item => node.data + ' ' + item)
+    }
+
+    function binaryTreePaths(root) {
+      if (root === null) return []
+      if (root.left === null && root.right === null) {
+        return [root.data]
+      }
+      var left = binaryTreePaths(root.left),
+        right = binaryTreePaths(root.right)
+      return left.concat(right).map(x => root.data + '->' + x)
+    }
+
+    // 层次遍历
+    function level(root) {
+      if (!root) return []
+      var result = [] //创建一个数组存放结果
+      var tree = [] //创建一个数组存放二叉树
+      tree.push(root) //先传入头结点 // 当tree数组长度不为空
+
+      while (tree.length) {
+        var node = tree.shift() // 将数组第一个结点放到node中
+        result.push(node.data) //将node结点的值压入result数组中 //如果node结点左子树不为空
+        if (node.left) {
+          tree.push(node.left) // 将node结点的左子树结点的值压入tree数组中
+        } //如果node结点又子树不为空
+        if (node.right) {
+          tree.push(node.right) //将node结点的右子树结点的值压入tree数组中
+        }
+      }
+      return result //返回result数组
+    }
+
+    /*
+      想要实现倒序遍历时先考虑下正序遍历怎么实现然后做一个结果的反序列排序操作
+    */
+    function relevel(root) {
+      if (!root) {
+        return null
+      }
+      var res = []
+      var tree = []
+      tree.push(root)
+      while (tree.length) {
+        var node = tree.shift()
+        res.push(node.data)
+        if (node.right) {
+          tree.push(node.right)
+        }
+        if (node.left) {
+          tree.push(node.left)
+        }
+      }
+      return res.reverse()
+    }
+    var bst = new BST()
+    bst.insert(23)
+    bst.insert(45)
+    bst.insert(16)
+    bst.insert(37)
+    bst.insert(3)
+    bst.insert(99)
+    bst.insert(22)
+    console.log(bst)
+
+    // inOrder(bst.root)
+    // console.log('------------------')
+    // lastOrder(bst.root)
+    // console.log('------------------')
+    // firstOrder(bst.root)
+
+    console.log(getMin(bst.root))
+    console.log(getMax(bst.root))
+    console.log(find(bst.root, 16))
+    console.log(sumPath(bst.root, 61))
+    console.log(allPath(bst.root))
+    console.log(binaryTreePaths(bst.root))
+    console.log(level(bst.root))
+    console.log(relevel(bst.root))
+  </script>
+</html>

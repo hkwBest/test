@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='./zepto.mini.js'></script>
+    <style>
+        .ori {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            border: 1px solid blue;
+        }
+
+        .box,
+        .box2 {
+            width: 500px;
+            height: 300px;
+            border: 1px dashed green;
+            margin-top: 100px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <span class="ori" draggable="true" ondragstart="dragstart(event)">hello world</span>
+    <div class="box" ondragover="dragover(event)" ondrop="drop(event)" ondragend="dragend(this,event)"></div>
+</body>
+<script>
+    function dragstart(event) {
+        event.dataTransfer.setData('text', event.target.className)
+    }
+    function dragover(event) {
+        event.preventDefault();
+    }
+    function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData('text');
+        var box = document.getElementsByClassName('box')[0];
+        var x = event.screenX - box.offsetLeft;
+        var y = event.screenY - box.offsetTop;
+        console.log(x)
+        event.target.appendChild(document.getElementsByClassName(data)[0]);
+        document.getElementsByClassName(data)[0].offsetLeft = x;
+        document.getElementsByClassName(data)[0].offsetTop = y;
+    }
+    function dragend(obj, event) {
+        // console.log(event.screenX)
+        // console.log($(obj).offset())
+    }
+</script>
+
+</html>

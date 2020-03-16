@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body></body>
+  <script>
+    var t = {
+      toString: function() {
+        return ++this.i
+      },
+      // valueOf: function() {
+      //   return ++this.i
+      // },
+      i: 0
+    }
+    var item
+    if (item == 1 && item == 2) {
+      console.log('hello')
+    }
+    var str = 'aaa-111aaa-222'
+    str.replace(/([a-z]+)-/, function($, $1) {
+      // console.log($, $1)
+      return $1 + '-'
+    })
+
+    var str =
+      '违反了《上市公司大股东、董监高减持股份的若干规定》第八条及《上市公司信息披露管理办法》第四十六条的相关规定 对方水电费《啊啊啊》胜多负少的  违反了《上市公司大股东、董监高减持股份的若干规定》第八条及《上市公司信息披露管理办法》第四十六条的相关规定 对方水电费《啊啊啊》胜多负少的'
+
+    var str2 =
+      '违反了《上市公司大股东、董监高减持股份的若干规定》第八条及《上市公司信息披露管理办法》第四十六条的相关规定《啊啊啊》违反了《2上市公司大股东、董监高减持股份的若干规定》第八条及《2上市公司信息披露管理办法》2第四十六条的相关规定《2啊啊啊》'
+    // var res = []
+    // var arr = str.match(/(?<=违反了).+?(?=相关规定)/g)
+    // for (var i = 0; i < arr.length; i++) {
+    //   res.push(arr[i].match(/《.+?》/g))
+    // }
+    console.log(
+      // str.match(/(?<=违反了.*?)(?<!相关规定)《.+?》(?=.*?相关规定)/g)
+      str.match(/(?<=违反了.*?)(?<!相关规定)《.*?》(?=.*?相关规定.*)/g)
+    )
+    var astr =
+      'abc xx abc yy<a href="abc">xxabcyy</a><div>xx abc yy</div>zz abc zz<a href="abc">xxabcyy</a>'
+    console.log(astr.match(/abc(?=.*?<a|(?!.*?<\/a>))/g))
+  </script>
+</html>

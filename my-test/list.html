@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body></body>
+  <script src="./list.js"></script>
+  <script>
+    var l = new List(['hello', 'world', 'hkw', 10])
+    var s = new List([1, 2, 3, 4, 5])
+    console.log('length:  ' + l.length())
+    console.log('current ele:  ' + l.getElement())
+    l.next()
+    console.log('current ele:  ' + l.getElement())
+    l.prev()
+    console.log('current ele:  ' + l.getElement())
+    console.log('max ele:  ' + s.getMaxEle())
+    l.insertMax('zy')
+    console.log('l after insertMax:  ' + l.toString())
+    l.insertMin('1')
+    console.log('l after insertMin:  ' + l.toString())
+
+    function Person(name, sex) {
+      this.name = name
+      this.sex = sex
+    }
+    var p = new List()
+    for (var i = 0; i < 10; i++) {
+      var sex = i % 2 == 0 ? 'boy' : 'girl'
+      p.append(new Person('tom' + i, sex))
+    }
+    console.log(p.toString())
+  </script>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .m-box {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 100px auto;
+            background: #00ED70;
+            border-radius: 50%;
+        }
+
+        .m-duigou {
+            width: 100px;
+            height: 50px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -40px 0 0 -50px;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            overflow: hidden
+        }
+
+        .m-duigou:before,
+        .m-duigou:after {
+            content: "";
+            position: absolute;
+            background: #fff;
+            border-radius: 4px
+        }
+
+        .m-duigou:before {
+            width: 2px;
+            height: 50px;
+            left: 0;
+            -webkit-animation: dgLeft 0.5s linear 3s 1 backwards;
+            animation: dgLeft 0.5s linear 3s 1 backwards; 
+        }
+
+        .m-duigou:after {
+            width: 100px;
+            height: 2px;
+            bottom: 0;
+            -webkit-animation: dgRight 0.5s linear 3.5s 1 both;
+            animation: dgRight 0.5s linear 3.5s 1 both;
+        }
+
+        @-webkit-keyframes dgLeft {
+            0% {
+                top: -100%
+            }
+
+            100% {
+                top: 0%
+            }
+        }
+
+        @-webkit-keyframes dgLeft {
+            0% {
+                top: -100%
+            }
+
+            100% {
+                top: 0%
+            }
+        }
+
+        @-webkit-keyframes dgRight {
+            0% {
+                left: -100%
+            }
+
+            100% {
+                left: 0%
+            }
+        }
+
+        @-webkit-keyframes dgRight {
+            0% {
+                left: -100%
+            }
+
+            100% {
+                left: 0%
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="m-box">
+        <div class="m-duigou"></div>
+    </div>
+
+</body>
+
+</html>
